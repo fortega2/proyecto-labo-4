@@ -6,7 +6,6 @@ class DataBaseService {
     private string $password = "EvxLgkoFS9Od10ybf3ZN";
 
     private static DataBaseService $instance;
-    private mysqli $connection;
 
     private function __construct() {}
 
@@ -30,25 +29,75 @@ class DataBaseService {
      *
      * @return mysqli La conexión a la base de datos.
     */
-    public function getDatabseConecction() {
-        if (!$this->connection || !$this->connection->ping()) {
-            $this->connection = new mysqli($this->host, $this->user, $this->password, $this->database);
-    
-            if ($this->connection->connect_errno) {
-                die("Error de conexión: " . $this->connection->connect_errno . " - " . $this->connection->connect_error);
-            }
+    public function getDatabaseConnection() {
+        $connection = new mysqli($this->host, $this->user, $this->password, $this->database);
+
+        if ($connection->connect_errno) {
+            die("Error de conexión: " . $connection->connect_errno . " - " . $connection->connect_error);
         }
 
-        return $this->connection;
+        return $connection;
     }
 
-    /**
-     * Cierra la conexión a la base de datos si es que está activa.
-    */
-    public function closeDatabaseConecction() {
-        if ($this->connection && $this->connection->ping()) {
-            $this->connection->close();
+    public function executeQuerySelect(string $query, string $types, array $params) {
+        $connection = $this->getDatabaseConnection();
+        $stmt = $this->prepareStatement($connection, $query, $types, $params);
+        $result = $this->executeStatementResult($stmt);
+        $data = $this->fetchData($result);
+    
+        $this->closeResources($stmt, $result, $connection);
+    
+        return $data;
+    }
+    
+    private function prepareStatement($connection, $query, $types, $params) {
+        $stmt = $connection->prepare($query);
+    
+        if (!$stmt) {
+            die('Error al preparar la declaración: ' . $connection->error);
         }
+    
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+    
+        return $stmt;
+    }
+    
+    private function executeStatementResult($stmt) {
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if (!$result) {
+            die('Error al obtener el resultado: ' . $stmt->error);
+        }
+    
+        return $result;
+    }
+
+    private function executeStatementRowsAffected($stmt) {
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if (!$result) {
+            die('Error al obtener el resultado: ' . $stmt->error);
+        }
+        
+        $rows = $result->num_rows;
+    
+        return $rows;
+    }
+    
+    private function fetchData($result) {
+        $data = $result->fetch_assoc();
+        $result->free();
+    
+        return $data;
+    }
+    
+    private function closeResources($stmt, $result, $connection) {
+        $stmt->close();
+        $connection->close();
     }
 }
 ?>
