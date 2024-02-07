@@ -11,7 +11,9 @@ class DataBaseService {
     private function __construct() {}
 
     /**
-     * Método para obtener la instancia única de la clase.
+     * Método para obtener una instancia única de la clase.
+     * Si no existe la instancia, se crea una nueva.
+     * Si ya existe, se retorna la instancia existente.
      *
      * @return DataBaseService La instancia única de la clase.
     */
