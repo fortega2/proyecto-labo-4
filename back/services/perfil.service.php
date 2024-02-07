@@ -16,9 +16,9 @@ class PerfilService implements CRUD {
         $types = "i";
         $params = [$id];
 
-        $resultData = $this->_dateBaseService->executeQuerySelect($query, $types, $params);
+        $resultData = $this->_dateBaseService->executeQuery($query, $types, $params);
 
-        if ($resultData !== null) {
+        if ($resultData != null) {
             $perfil = new Perfil($resultData);
             return $perfil;
         }
@@ -27,19 +27,53 @@ class PerfilService implements CRUD {
     }
 
     public function getAll() {
-        // TODO
+        $query = "SELECT id, descripcion, fecha_creacion AS fechaCreacion FROM perfiles";
+        $types = "";
+        $params = [];
+
+        $resultData = $this->_dateBaseService->executeQueryArray($query, $types, $params);
+
+        if ($resultData != null) {
+            $perfiles = [];
+            foreach ($resultData as $data) {
+                $perfil = new Perfil($data);
+                array_push($perfiles, $perfil);
+            }
+    
+            return $perfiles;
+        }
+
+        return null;
     }
 
     public function insert(object $object) {
-        // TODO
+        $query = "INSERT INTO perfiles (descripcion, fecha_creacion) VALUES (?, ?)";
+        $types = "ss";
+        $params = [$object->descripcion, $object->fechaCreacion];
+
+        $rowsAffected = $this->_dateBaseService->executeInsertUpdateOrDelete($query, $types, $params);
+        
+        return $rowsAffected;
     }
 
     public function update(object $object) {
-        // TODO
+        $query = "UPDATE perfiles SET descripcion = ?, fecha_creacion = ? WHERE id = ?";
+        $types = "ssi";
+        $params = [$object->descripcion, $object->fechaCreacion, $object->id];
+
+        $rowsAffected = $this->_dateBaseService->executeInsertUpdateOrDelete($query, $types, $params);
+
+        return $rowsAffected;
     }
 
     public function delete(int $id) {
-        // TODO
+        $query = "DELETE FROM perfiles WHERE id = ?";
+        $types = "i";
+        $params = [$id];
+
+        $rowsAffected = $this->_dateBaseService->executeInsertUpdateOrDelete($query, $types, $params);
+
+        return $rowsAffected;
     }
 }
 ?>
