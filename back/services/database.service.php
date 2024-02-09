@@ -89,7 +89,7 @@ class DataBaseService {
         $connection = new mysqli($this->host, $this->user, $this->password, $this->database);
 
         if ($connection->connect_errno) {
-            die("Error de conexión: " . $connection->connect_errno . " - " . $connection->connect_error);
+            throw new Exception("Error de conexión: " . $connection->connect_errno . " - " . $connection->connect_error);
         }
 
         return $connection;
@@ -108,7 +108,7 @@ class DataBaseService {
         $stmt = $connection->prepare($query);
 
         if (!$stmt) {
-            die('Error al preparar la declaración: ' . $connection->error);
+            throw new Exception('Error al preparar la declaración: ' . $connection->error);
         }
 
         if (!empty($params)) {
@@ -125,14 +125,12 @@ class DataBaseService {
      * @return object El resultado de la ejecución.
     */
     private function executeStatementResult($stmt) {
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if (!$result) {
-            die('Error al obtener el resultado: ' . $stmt->error);
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            return $result;
+        } else {
+            throw new Exception('Error al ejecutar la query: ' . $stmt->connect_errno . " - " . $stmt->connect_error);
         }
-
-        return $result;
     }
 
     /**
@@ -142,9 +140,12 @@ class DataBaseService {
      * @return int El número de filas afectadas.
     */
     private function executeStatementRowsAffected($stmt) {
-        $stmt->execute();
-        $rows = $stmt->affected_rows;
-        return $rows;
+        if ($stmt->execute()) {
+            $rows = $stmt->affected_rows;
+            return $rows;
+        } else {
+            throw new Exception('Error al ejecutar la query: ' . $stmt->connect_errno . " - " . $stmt->connect_error);
+        }
     }
 
     /**
