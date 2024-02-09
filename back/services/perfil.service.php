@@ -2,9 +2,10 @@
 // Imports
 require_once __DIR__ . '/database.service.php';
 require_once __DIR__ . '/../interfaces/crud.interface.php';
+require_once __DIR__ . '/../interfaces/data-access.interface.php';
 require_once __DIR__ . '/../models/entities/perfil.model.php';
 
-class PerfilService implements CRUD {
+class PerfilService implements CRUD, DataAccess {
     private DataBaseService $_dateBaseService;
 
     public function __construct() {
