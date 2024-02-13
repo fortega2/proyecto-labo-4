@@ -14,8 +14,10 @@ try {
     $response->tieneError = false;
     $response->resultado = $perfiles;
 
-    if ($perfiles == null) 
+    if ($perfiles == null) {
         $response->mensaje = "No se encontraron perfiles";
+        http_response_code(404);
+    }
 } catch (Exception $e) {
     $response->tieneError = true;
     $response->mensaje = $e->getMessage();
