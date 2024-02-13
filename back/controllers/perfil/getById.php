@@ -24,8 +24,10 @@ try {
     $response->tieneError = false;
     $response->resultado = $perfil;
 
-    if ($perfil == null) 
+    if ($perfil == null) {
         $response->mensaje = "No se encontró el perfil";
+        http_response_code(404);
+    }
 } catch (Exception $e) {
     $response->tieneError = true;
     $response->mensaje = $e->getMessage();
