@@ -5,7 +5,7 @@ require_once __DIR__ . '/../interfaces/data-access.interface.php';
 // Models
 require_once __DIR__ . '/../models/entities/pais.model.php';
 
-class PaisService implements DataAccess {
+class PaisService implements DataAccessCode {
     private DataBaseService $_dateBaseService;
 
     public function __construct() {
