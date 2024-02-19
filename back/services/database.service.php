@@ -70,7 +70,7 @@ class DataBaseService {
      * @param array $params Los parámetros de la consulta.
      * @return int El número de filas afectadas por la consulta.
     */
-    public function executeInsertUpdateOrDelete(string $query, string $types, array $params) {
+    public function executeCrud(string $query, string $types, array $params) {
         $connection = $this->getDatabaseConnection();
         $stmt = $this->prepareStatement($connection, $query, $types, $params);
         $rows = $this->executeStatementRowsAffected($stmt);
