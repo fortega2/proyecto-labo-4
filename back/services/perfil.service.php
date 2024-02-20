@@ -52,7 +52,7 @@ class PerfilService implements CRUD, DataAccess {
         $types = "ss";
         $params = [$object->descripcion, $object->fechaCreacion];
 
-        $rowsAffected = $this->_dateBaseService->executeInsertUpdateOrDelete($query, $types, $params);
+        $rowsAffected = $this->_dateBaseService->executeCrud($query, $types, $params);
         
         return $rowsAffected;
     }
@@ -62,7 +62,7 @@ class PerfilService implements CRUD, DataAccess {
         $types = "ssi";
         $params = [$object->descripcion, $object->fechaCreacion, $object->id];
 
-        $rowsAffected = $this->_dateBaseService->executeInsertUpdateOrDelete($query, $types, $params);
+        $rowsAffected = $this->_dateBaseService->executeCrud($query, $types, $params);
 
         return $rowsAffected;
     }
@@ -72,7 +72,7 @@ class PerfilService implements CRUD, DataAccess {
         $types = "i";
         $params = [$id];
 
-        $rowsAffected = $this->_dateBaseService->executeInsertUpdateOrDelete($query, $types, $params);
+        $rowsAffected = $this->_dateBaseService->executeCrud($query, $types, $params);
 
         return $rowsAffected;
     }
