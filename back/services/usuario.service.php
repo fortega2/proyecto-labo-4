@@ -1,21 +1,20 @@
 <?php
-// Services
-require_once __DIR__ . '/database.service.php';
-// Interfaces
-require_once __DIR__ . '/../interfaces/crud.interface.php';
-require_once __DIR__ . '/../interfaces/data-access.interface.php';
-// Models
-require_once __DIR__ . '/../models/entities/usuario.model.php';
+namespace Services;
+
+use Services\DataBaseService;
+use Interfaces\CRUD;
+use Interfaces\DataAccess;
+use Models\Entities\Usuario;
 
 class UsuarioService implements CRUD, DataAccess {
-    private DataBaseService $_dateBaseService;
+    private DataBaseService $dateBaseService;
 
     public function __construct() {
-        $this->_dateBaseService = DataBaseService::getInstance();
+        $this->dateBaseService = DataBaseService::getInstance();
     }
 
     public function loginUsuario(string $email, string $password) {
-        $query = "SELECT 
+        $query = "SELECT
                     id,
                     nombre,
                     apellido,
@@ -36,7 +35,7 @@ class UsuarioService implements CRUD, DataAccess {
         $types = "s";
         $params = [$email];
 
-        $resultData = $this->_dateBaseService->executeQuery($query, $types, $params);
+        $resultData = $this->dateBaseService->executeQuery($query, $types, $params);
 
         if ($resultData != null) {
             $usuario = new Usuario($resultData);
@@ -50,7 +49,7 @@ class UsuarioService implements CRUD, DataAccess {
     }
 
     public function getById(int $id) {
-        $query = "SELECT 
+        $query = "SELECT
                     id,
                     nombre,
                     apellido,
@@ -71,18 +70,17 @@ class UsuarioService implements CRUD, DataAccess {
         $types = "i";
         $params = [$id];
 
-        $resultData = $this->_dateBaseService->executeQuery($query, $types, $params);
+        $resultData = $this->dateBaseService->executeQuery($query, $types, $params);
 
         if ($resultData != null) {
-            $usuario = new Usuario($resultData);
-            return $usuario;
+            return new Usuario($resultData);
         }
 
         return null;
     }
 
     public function getAll() {
-        $query = "SELECT 
+        $query = "SELECT
                     id,
                     nombre,
                     apellido,
@@ -101,7 +99,7 @@ class UsuarioService implements CRUD, DataAccess {
         $types = "";
         $params = [];
 
-        $resultData = $this->_dateBaseService->executeQueryArray($query, $types, $params);
+        $resultData = $this->dateBaseService->executeQueryArray($query, $types, $params);
 
         if ($resultData != null) {
             $usuarios = [];
@@ -117,9 +115,9 @@ class UsuarioService implements CRUD, DataAccess {
     }
     
     public function insert(object $object) {
-        $query = "INSERT INTO usuarios 
+        $query = "INSERT INTO usuarios
                     (id, nombre, apellido, password, dni, celular, email, id_perfil, id_pais, id_ciudad, fecha_alta)
-                VALUES 
+                VALUES
                     (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $types = "sssiisiiis";
 
@@ -138,16 +136,14 @@ class UsuarioService implements CRUD, DataAccess {
             $object->fechaAlta,
         ];
 
-        $rowsAffected = $this->_dateBaseService->executeCrud($query, $types, $params);
-
-        return $rowsAffected;
+        return $this->dateBaseService->executeCrud($query, $types, $params);
     }
 
     public function update(object $object) {
         $query = "UPDATE usuarios
                 SET
                     nombre = ?,
-                    apellido = ?, 
+                    apellido = ?,
                     dni = ?,
                     celular = ?,
                     email = ?,
@@ -174,9 +170,7 @@ class UsuarioService implements CRUD, DataAccess {
         $object->id
     ];
 
-        $rowsAffected = $this->_dateBaseService->executeCrud($query, $types, $params);
-
-        return $rowsAffected;
+        return $this->dateBaseService->executeCrud($query, $types, $params);
     }
 
     public function delete(int $id) {
@@ -184,8 +178,6 @@ class UsuarioService implements CRUD, DataAccess {
         $types = "i";
         $params = [$id];
 
-        $rowsAffected = $this->_dateBaseService->executeCrud($query, $types, $params);
-
-        return $rowsAffected;
+        return $this->dateBaseService->executeCrud($query, $types, $params);
     }
 }

@@ -1,7 +1,6 @@
 <?php
-require_once __DIR__ . '/../../models/entities/usuario.model.php';
-require_once __DIR__ . '/../../models/dtos/response/general-response.model.php';
-require_once __DIR__ . '/../../services/usuario.service.php';
+use Services\UsuarioService;
+use Models\DTOs\Response\GeneralResponse;
 
 header('Content-Type: application/json');
 
@@ -24,10 +23,11 @@ try {
     $response->tieneError = false;
     $response->resultado = $rowsAffected;
 
-    if ($rowsAffected == 0) 
+    if ($rowsAffected == 0) {
         $response->mensaje = "No se pudo eliminar el usuario " . $id;
-    else
+    } else {
         $response->mensaje = "El usuario con ID " . $id . " se eliminó exitosamente";
+    }
 } catch (Exception $e) {
     $response->tieneError = true;
     $response->mensaje = $e->getMessage();

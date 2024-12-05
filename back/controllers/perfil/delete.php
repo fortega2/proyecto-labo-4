@@ -1,7 +1,6 @@
 <?php
-require_once __DIR__ . '/../../models/entities/perfil.model.php';
-require_once __DIR__ . '/../../models/dtos/response/general-response.model.php';
-require_once __DIR__ . '/../../services/perfil.service.php';
+use Services\PerfilService;
+use Models\DTOs\Response\GeneralResponse;
 
 header('Content-Type: application/json');
 
@@ -24,10 +23,11 @@ try {
     $response->tieneError = false;
     $response->resultado = $rowsAffected;
 
-    if ($rowsAffected == 0) 
+    if ($rowsAffected == 0) {
         $response->mensaje = "No se pudo eliminar el perfil " . $id;
-    else
+    } else {
         $response->mensaje = "El perfil " . $id . " se eliminó exitosamente";
+    }
 } catch (Exception $e) {
     $response->tieneError = true;
     $response->mensaje = $e->getMessage();
@@ -35,4 +35,3 @@ try {
 
 $json = json_encode($response);
 echo $json;
-?>

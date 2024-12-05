@@ -1,4 +1,6 @@
 <?php
+namespace Models\Entities;
+
 class Perfil {
     public int $id;
     public string $descripcion;
@@ -10,4 +12,3 @@ class Perfil {
         $this->fechaCreacion = $data['fechaCreacion'];
     }
 }
-?>

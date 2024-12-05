@@ -1,15 +1,15 @@
 <?php
-// Services
-require_once __DIR__ . '/database.service.php';
-require_once __DIR__ . '/../interfaces/data-access.interface.php';
-// Models
-require_once __DIR__ . '/../models/entities/ciudad.model.php';
+namespace Services;
+
+use Services\DataBaseService;
+use Interfaces\DataAccessCode;
+use Models\Entities\Ciudad;
 
 class CiudadService implements DataAccessCode {
-    private DataBaseService $_dateBaseService;
+    private DataBaseService $dateBaseService;
 
     public function __construct() {
-        $this->_dateBaseService = DataBaseService::getInstance();
+        $this->dateBaseService = DataBaseService::getInstance();
     }
 
     public function getById($id) {
@@ -17,11 +17,10 @@ class CiudadService implements DataAccessCode {
         $types = "i";
         $params = [$id];
 
-        $resultData = $this->_dateBaseService->executeQuery($query, $types, $params);
+        $resultData = $this->dateBaseService->executeQuery($query, $types, $params);
 
         if ($resultData != null) {
-            $ciudad = new Ciudad($resultData);
-            return $ciudad;
+            return new Ciudad($resultData);
         }
 
         return null;
@@ -32,11 +31,10 @@ class CiudadService implements DataAccessCode {
         $types = "s";
         $params = [$codigo];
 
-        $resultData = $this->_dateBaseService->executeQuery($query, $types, $params);
+        $resultData = $this->dateBaseService->executeQuery($query, $types, $params);
 
         if ($resultData != null) {
-            $ciudad = new Ciudad($resultData);
-            return $ciudad;
+            return new Ciudad($resultData);
         }
 
         return null;
@@ -47,7 +45,7 @@ class CiudadService implements DataAccessCode {
         $types = "";
         $params = [];
 
-        $resultData = $this->_dateBaseService->executeQueryArray($query, $types, $params);
+        $resultData = $this->dateBaseService->executeQueryArray($query, $types, $params);
 
         if ($resultData != null) {
             $ciudades = [];
