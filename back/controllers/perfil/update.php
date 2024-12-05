@@ -1,7 +1,7 @@
 <?php
-use Services\PerfilService;
-use Models\Entities\Perfil;
-use Models\DTOs\Response\GeneralResponse;
+require_once __DIR__ . '/../../models/entities/perfil.model.php';
+require_once __DIR__ . '/../../models/dtos/response/general-response.model.php';
+require_once __DIR__ . '/../../services/perfil.service.php';
 
 header('Content-Type: application/json');
 

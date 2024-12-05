@@ -1,6 +1,4 @@
 <?php
-namespace Models\Entities;
-
 class Ciudad {
     public int $id;
     public string $nombre;

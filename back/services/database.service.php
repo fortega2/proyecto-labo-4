@@ -1,15 +1,13 @@
 <?php
-namespace Services;
-
-use mysqli;
-use Exceptions\DatabaseConnectionException;
-use Exceptions\DatabaseQueryException;
+require_once __DIR__ . '../../exceptions/database-connection-exception.php';
+require_once __DIR__ . '../../exceptions/database-query-exception.php';
 
 class DataBaseService {
-    private string $host = "b5oonaccrh45cpi3gevs-mysql.services.clever-cloud.com";
-    private string $database = "b5oonaccrh45cpi3gevs";
-    private string $user = "ugjhggs4vvwnlhjj";
-    private string $password = "EvxLgkoFS9Od10ybf3ZN";
+    private string $host = 'localhost';
+    private int $port = 3306;
+    private string $database = 'proyecto_labo_4';
+    private string $user = 'root';
+    private string $password = '';
 
     private static DataBaseService $instance;
 
@@ -93,7 +91,7 @@ class DataBaseService {
      * @return mysqli La conexión a la base de datos.
     */
     private function getDatabaseConnection() {
-        $connection = new mysqli($this->host, $this->user, $this->password, $this->database);
+        $connection = new mysqli($this->host, $this->user, $this->password, $this->database, $this->port);
 
         if ($connection->connect_errno) {
             throw new DatabaseConnectionException("Error de conexión: " . $connection->connect_errno . " - " . $connection->connect_error);

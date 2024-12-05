@@ -1,10 +1,8 @@
 <?php
-namespace Services;
-
-use Services\DataBaseService;
-use Interfaces\CRUD;
-use Interfaces\DataAccess;
-use Models\Entities\Usuario;
+require_once __DIR__ . '/database.service.php';
+require_once __DIR__ . '/../interfaces/crud.interface.php';
+require_once __DIR__ . '/../interfaces/data-access.interface.php';
+require_once __DIR__ . '/../models/entities/usuario.model.php';
 
 class UsuarioService implements CRUD, DataAccess {
     private DataBaseService $dateBaseService;
@@ -23,8 +21,6 @@ class UsuarioService implements CRUD, DataAccess {
                     celular,
                     email,
                     id_perfil AS idPerfil,
-                    id_pais AS idPais,
-                    id_ciudad AS idCiudad,
                     fecha_alta AS fechaAlta,
                     fecha_modificacion AS fechaModificacion,
                     usuario_modificacion AS usuarioModificacion
@@ -58,8 +54,6 @@ class UsuarioService implements CRUD, DataAccess {
                     celular,
                     email,
                     id_perfil AS idPerfil,
-                    id_pais AS idPais,
-                    id_ciudad AS idCiudad,
                     fecha_alta AS fechaAlta,
                     fecha_modificacion AS fechaModificacion,
                     usuario_modificacion AS usuarioModificacion
@@ -89,8 +83,6 @@ class UsuarioService implements CRUD, DataAccess {
                     celular,
                     email,
                     id_perfil AS idPerfil,
-                    id_pais AS idPais,
-                    id_ciudad AS idCiudad,
                     fecha_alta AS fechaAlta,
                     fecha_modificacion AS fechaModificacion,
                     usuario_modificacion AS usuarioModificacion
@@ -116,10 +108,10 @@ class UsuarioService implements CRUD, DataAccess {
     
     public function insert(object $object) {
         $query = "INSERT INTO usuarios
-                    (id, nombre, apellido, password, dni, celular, email, id_perfil, id_pais, id_ciudad, fecha_alta)
+                    (id, nombre, apellido, password, dni, celular, email, id_perfil, fecha_alta)
                 VALUES
-                    (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $types = "sssiisiiis";
+                    (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $types = "sssiisis";
 
         $hashedPassword = password_hash($object->password, PASSWORD_DEFAULT);
 
@@ -131,8 +123,6 @@ class UsuarioService implements CRUD, DataAccess {
             $object->celular,
             $object->email,
             $object->idPerfil,
-            $object->idPais,
-            $object->idCiudad,
             $object->fechaAlta,
         ];
 
@@ -148,13 +138,11 @@ class UsuarioService implements CRUD, DataAccess {
                     celular = ?,
                     email = ?,
                     id_perfil = ?,
-                    id_pais = ?,
-                    id_ciudad = ?,
                     fecha_modificacion = ?,
                     usuario_modificacion = ?
                 WHERE
                     id = ?";
-    $types = "ssiisiiisii";
+    $types = "ssiisisii";
 
     $params = [
         $object->nombre,
@@ -163,8 +151,6 @@ class UsuarioService implements CRUD, DataAccess {
         $object->celular,
         $object->email,
         $object->idPerfil,
-        $object->idPais,
-        $object->idCiudad,
         $object->fechaModificacion,
         $object->usuarioModificacion,
         $object->id

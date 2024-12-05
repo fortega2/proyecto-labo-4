@@ -1,6 +1,7 @@
 <?php
-use Services\UsuarioService;
-use Models\DTOs\Response\GeneralResponse;
+require_once __DIR__ . '/../../models/entities/usuario.model.php';
+require_once __DIR__ . '/../../models/dtos/response/general-response.model.php';
+require_once __DIR__ . '/../../services/usuario.service.php';
 
 header('Content-Type: application/json');
 

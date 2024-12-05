@@ -1,6 +1,4 @@
 <?php
-namespace Interfaces;
-
 interface CRUD {
     public function insert(object $object);
     public function update(object $object);

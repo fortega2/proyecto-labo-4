@@ -1,6 +1,4 @@
 <?php
-namespace Models\Entities;
-
 class Pais {
     public int $id;
     public string $descripcion;

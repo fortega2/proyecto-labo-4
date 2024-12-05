@@ -1,9 +1,7 @@
 <?php
-namespace Services;
-
-use Services\DataBaseService;
-use Interfaces\DataAccessCode;
-use Models\Entities\Pais;
+require_once __DIR__ . '/database.service.php';
+require_once __DIR__ . '/../interfaces/data-access.interface.php';
+require_once __DIR__ . '/../models/entities/pais.model.php';
 
 class PaisService implements DataAccessCode {
     private DataBaseService $dateBaseService;

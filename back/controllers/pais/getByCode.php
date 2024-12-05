@@ -1,6 +1,7 @@
 <?php
-use Services\PaisService;
-use Models\DTOs\Response\GeneralResponse;
+require_once __DIR__ . '/../../models/entities/pais.model.php';
+require_once __DIR__ . '/../../models/dtos/response/general-response.model.php';
+require_once __DIR__ . '/../../services/pais.service.php';
 
 header('Content-Type: application/json');
 

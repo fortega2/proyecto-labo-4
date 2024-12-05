@@ -1,6 +1,4 @@
 <?php
-namespace Models\Entities;
-
 class Usuario {
     public int | null $id;
     public string $nombre;
@@ -10,8 +8,6 @@ class Usuario {
     public int | null $celular;
     public string $email;
     public int $idPerfil;
-    public int $idPais;
-    public int $idCiudad;
     public string $fechaAlta;
     public string | null $fechaModificacion;
     public int | null $usuarioModificacion;
@@ -25,8 +21,6 @@ class Usuario {
         $this->celular = $data['celular'];
         $this->email = $data['email'];
         $this->idPerfil = $data['idPerfil'];
-        $this->idPais = $data['idPais'];
-        $this->idCiudad = $data['idCiudad'];
         $this->fechaAlta = $data['fechaAlta'];
         $this->fechaModificacion = $data['fechaModificacion'];
         $this->usuarioModificacion = $data['usuarioModificacion'];

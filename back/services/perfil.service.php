@@ -1,10 +1,8 @@
 <?php
-namespace Services;
-
-use Services\DataBaseService;
-use Interfaces\CRUD;
-use Interfaces\DataAccess;
-use Models\Entities\Perfil;
+require_once __DIR__ . '/database.service.php';
+require_once __DIR__ . '/../interfaces/crud.interface.php';
+require_once __DIR__ . '/../interfaces/data-access.interface.php';
+require_once __DIR__ . '/../models/entities/perfil.model.php';
 
 class PerfilService implements CRUD, DataAccess {
     private DataBaseService $dateBaseService;

@@ -1,6 +1,4 @@
 <?php
-namespace Models\DTOs\Response;
-
 class GeneralResponse {
     public bool $tieneError;
     public string $mensaje;

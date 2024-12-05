@@ -1,9 +1,7 @@
 <?php
-namespace Services;
-
-use Services\DataBaseService;
-use Interfaces\DataAccessCode;
-use Models\Entities\Ciudad;
+require_once __DIR__ . '/database.service.php';
+require_once __DIR__ . '/../interfaces/data-access.interface.php';
+require_once __DIR__ . '/../models/entities/ciudad.model.php';
 
 class CiudadService implements DataAccessCode {
     private DataBaseService $dateBaseService;
