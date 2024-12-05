@@ -1,7 +1,6 @@
 <?php
-require_once __DIR__ . '/../../models/entities/ciudad.model.php';
-require_once __DIR__ . '/../../models/dtos/response/general-response.model.php';
-require_once __DIR__ . '/../../services/ciudad.service.php';
+use Services\CiudadService;
+use Models\DTOs\Response\GeneralResponse;
 
 header('Content-Type: application/json');
 

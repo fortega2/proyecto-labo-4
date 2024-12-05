@@ -1,7 +1,6 @@
 <?php
-require_once __DIR__ . '/../../models/entities/perfil.model.php';
-require_once __DIR__ . '/../../models/dtos/response/general-response.model.php';
-require_once __DIR__ . '/../../services/perfil.service.php';
+use Services\PerfilService;
+use Models\DTOs\Response\GeneralResponse;
 
 header('Content-Type: application/json');
 
@@ -35,4 +34,3 @@ try {
 
 $json = json_encode($response);
 echo $json;
-?>

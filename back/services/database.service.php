@@ -1,4 +1,10 @@
 <?php
+namespace Services;
+
+use mysqli;
+use Exceptions\DatabaseConnectionException;
+use Exceptions\DatabaseQueryException;
+
 class DataBaseService {
     private string $host = "b5oonaccrh45cpi3gevs-mysql.services.clever-cloud.com";
     private string $database = "b5oonaccrh45cpi3gevs";
@@ -7,6 +13,7 @@ class DataBaseService {
 
     private static DataBaseService $instance;
 
+    // Constructor privado para evitar la creación de instancias.
     private function __construct() {}
 
     /**
@@ -38,7 +45,7 @@ class DataBaseService {
         $result = $this->executeStatementResult($stmt);
         $data = $this->fetchData($result);
     
-        $this->closeResources($stmt, $result, $connection);
+        $this->closeResources($stmt, $connection);
     
         return $data;
     }
@@ -57,7 +64,7 @@ class DataBaseService {
         $result = $this->executeStatementResult($stmt);
         $data = $this->fetchDataArray($result);
 
-        $this->closeResources($stmt, $result, $connection);
+        $this->closeResources($stmt, $connection);
 
         return $data;
     }
@@ -75,7 +82,7 @@ class DataBaseService {
         $stmt = $this->prepareStatement($connection, $query, $types, $params);
         $rows = $this->executeStatementRowsAffected($stmt);
 
-        $this->closeResources($stmt, null, $connection);
+        $this->closeResources($stmt, $connection);
 
         return $rows;
     }
@@ -89,7 +96,7 @@ class DataBaseService {
         $connection = new mysqli($this->host, $this->user, $this->password, $this->database);
 
         if ($connection->connect_errno) {
-            throw new Exception("Error de conexión: " . $connection->connect_errno . " - " . $connection->connect_error);
+            throw new DatabaseConnectionException("Error de conexión: " . $connection->connect_errno . " - " . $connection->connect_error);
         }
 
         return $connection;
@@ -108,7 +115,7 @@ class DataBaseService {
         $stmt = $connection->prepare($query);
 
         if (!$stmt) {
-            throw new Exception('Error al preparar la declaración: ' . $connection->error);
+            throw new DatabaseQueryException('Error al preparar la declaración: ' . $connection->error);
         }
 
         if (!empty($params)) {
@@ -126,10 +133,9 @@ class DataBaseService {
     */
     private function executeStatementResult($stmt) {
         if ($stmt->execute()) {
-            $result = $stmt->get_result();
-            return $result;
+            return $stmt->get_result();
         } else {
-            throw new Exception('Error al ejecutar la query: ' . $stmt->connect_errno . " - " . $stmt->connect_error);
+            throw new DatabaseQueryException('Error al ejecutar la query: ' . $stmt->connect_errno . " - " . $stmt->connect_error);
         }
     }
 
@@ -141,10 +147,9 @@ class DataBaseService {
     */
     private function executeStatementRowsAffected($stmt) {
         if ($stmt->execute()) {
-            $rows = $stmt->affected_rows;
-            return $rows;
+            return $stmt->affected_rows;
         } else {
-            throw new Exception('Error al ejecutar la query: ' . $stmt->connect_errno . " - " . $stmt->connect_error);
+            throw new DatabaseQueryException('Error al ejecutar la query: ' . $stmt->connect_errno . " - " . $stmt->connect_error);
         }
     }
 
@@ -185,9 +190,8 @@ class DataBaseService {
      * @param object $connection La conexión a la base de datos.
      * @return void
     */
-    private function closeResources($stmt, $result, $connection) {
+    private function closeResources($stmt, $connection) {
         $stmt->close();
         $connection->close();
     }
 }
-?>

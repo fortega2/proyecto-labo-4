@@ -1,4 +1,6 @@
 <?php
+namespace Models\Entities;
+
 class Usuario {
     public int | null $id;
     public string $nombre;

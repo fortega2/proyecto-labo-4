@@ -1,15 +1,16 @@
 <?php
-// Imports
-require_once __DIR__ . '/database.service.php';
-require_once __DIR__ . '/../interfaces/crud.interface.php';
-require_once __DIR__ . '/../interfaces/data-access.interface.php';
-require_once __DIR__ . '/../models/entities/perfil.model.php';
+namespace Services;
+
+use Services\DataBaseService;
+use Interfaces\CRUD;
+use Interfaces\DataAccess;
+use Models\Entities\Perfil;
 
 class PerfilService implements CRUD, DataAccess {
-    private DataBaseService $_dateBaseService;
+    private DataBaseService $dateBaseService;
 
     public function __construct() {
-        $this->_dateBaseService = DataBaseService::getInstance();
+        $this->dateBaseService = DataBaseService::getInstance();
     }
 
     public function getById(int $id) {
@@ -17,11 +18,10 @@ class PerfilService implements CRUD, DataAccess {
         $types = "i";
         $params = [$id];
 
-        $resultData = $this->_dateBaseService->executeQuery($query, $types, $params);
+        $resultData = $this->dateBaseService->executeQuery($query, $types, $params);
 
         if ($resultData != null) {
-            $perfil = new Perfil($resultData);
-            return $perfil;
+            return new Perfil($resultData);
         }
 
         return null;
@@ -32,7 +32,7 @@ class PerfilService implements CRUD, DataAccess {
         $types = "";
         $params = [];
 
-        $resultData = $this->_dateBaseService->executeQueryArray($query, $types, $params);
+        $resultData = $this->dateBaseService->executeQueryArray($query, $types, $params);
 
         if ($resultData != null) {
             $perfiles = [];
@@ -52,9 +52,7 @@ class PerfilService implements CRUD, DataAccess {
         $types = "ss";
         $params = [$object->descripcion, $object->fechaCreacion];
 
-        $rowsAffected = $this->_dateBaseService->executeCrud($query, $types, $params);
-        
-        return $rowsAffected;
+        return $this->dateBaseService->executeCrud($query, $types, $params);
     }
 
     public function update(object $object) {
@@ -62,9 +60,7 @@ class PerfilService implements CRUD, DataAccess {
         $types = "ssi";
         $params = [$object->descripcion, $object->fechaCreacion, $object->id];
 
-        $rowsAffected = $this->_dateBaseService->executeCrud($query, $types, $params);
-
-        return $rowsAffected;
+        return $this->dateBaseService->executeCrud($query, $types, $params);
     }
 
     public function delete(int $id) {
@@ -72,9 +68,6 @@ class PerfilService implements CRUD, DataAccess {
         $types = "i";
         $params = [$id];
 
-        $rowsAffected = $this->_dateBaseService->executeCrud($query, $types, $params);
-
-        return $rowsAffected;
+        return $this->dateBaseService->executeCrud($query, $types, $params);
     }
 }
-?>
