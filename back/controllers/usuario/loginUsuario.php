@@ -12,6 +12,7 @@ if (!isset($_GET['email'])) {
     $response->mensaje = "Es requerido el email para buscar un usuario";
     $json = json_encode($response);
     echo $json;
+    http_response_code(400);
     return;
 }
 
@@ -20,6 +21,7 @@ if (!isset($_GET['password'])) {
     $response->mensaje = "Es requerida la contraseña para buscar un usuario";
     $json = json_encode($response);
     echo $json;
+    http_response_code(400);
     return;
 }
 
@@ -30,7 +32,7 @@ try {
     $usuarioService = new UsuarioService();
     $usuario = $usuarioService->loginUsuario($email, $password);
 
-    $response->tieneError = false;
+    $response->tieneError = true;
     $response->resultado = $usuario;
 
     if ($usuario == null) {
@@ -42,5 +44,4 @@ try {
     $response->mensaje = $e->getMessage();
 }
 
-$json = json_encode($response);
-echo $json;
+echo json_encode($response);
