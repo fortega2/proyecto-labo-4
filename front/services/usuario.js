@@ -1,8 +1,8 @@
-import { API_URL } from "../environments/environment.js";
+import { BACK_WS } from "../environments/environment.js";
 
 class UsuarioService {
     constructor() {
-        this.urlUsuario = `${API_URL}/usuario`;
+        this.urlUsuario = `${BACK_WS}/usuario`;
     }
 
     async login(email, password) {
@@ -14,6 +14,18 @@ class UsuarioService {
             headers: {
                 'Content-Type': 'application/json',
             },
+        });
+
+        return response.json();
+    }
+
+    async crear(usuario) {
+        const response = await fetch(`${this.urlUsuario}/insert.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(usuario),
         });
 
         return response.json();

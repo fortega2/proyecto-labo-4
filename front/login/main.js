@@ -1,3 +1,4 @@
+import GeneralResponse from "../models/dtos/general-response.dto.js";
 import UsuarioService from "../services/usuario.js";
 
 const formElement = document.getElementById('formLogin');
@@ -8,17 +9,13 @@ const usuarioService = new UsuarioService();
 
 emailElement.value = '';
 
-function validarCampos() {
-    if (emailElement.value.trim() === '' || passwordElement.value.trim() === '' || !formElement.checkValidity()) {
+formElement.addEventListener('input', () => {
+    if (!formElement.checkValidity()) {
         submitButton.disabled = true;
     } else {
         submitButton.disabled = false;
     }
-}
-
-emailElement.addEventListener('input', validarCampos);
-passwordElement.addEventListener('input', validarCampos);
-validarCampos();
+});
 
 formElement.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -27,14 +24,16 @@ formElement.addEventListener('submit', async (event) => {
         return;
     }
 
-    const email = emailElement.value;
+    const email = emailElement.value.trim().toUpperCase();
     const password = passwordElement.value;
 
     try {
         const response = await usuarioService.login(email, password);
+        const generapRsp = new GeneralResponse(response.tieneError, response.mensaje, response.data);
 
-        if (response.tieneError) {
+        if (generapRsp.tieneError) {
             alert(response.mensaje);
+            return;
         }
     } catch (error) {
         alert(error);

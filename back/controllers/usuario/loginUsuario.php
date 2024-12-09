@@ -32,16 +32,20 @@ try {
     $usuarioService = new UsuarioService();
     $usuario = $usuarioService->loginUsuario($email, $password);
 
-    $response->tieneError = true;
+    $response->tieneError = false;
     $response->resultado = $usuario;
 
     if ($usuario == null) {
+        $response->tieneError = true;
         $response->mensaje = "No se encontró el usuario. El email o la contraseña son incorrectos.";
         http_response_code(404);
+    } else {
+        $_SESSION['datosUsuario'] = $usuario;
     }
 } catch (Exception $e) {
     $response->tieneError = true;
     $response->mensaje = $e->getMessage();
 }
+
 
 echo json_encode($response);

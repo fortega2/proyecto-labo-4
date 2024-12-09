@@ -19,7 +19,7 @@
 
 <body>
     <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-5">
             <div class="card">
                 <div class="card-header text-center">
                     <h3>Login</h3>
@@ -28,12 +28,16 @@
                     <form id="formLogin">
                         <div class="mb-4">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Ingrese su correo">
+                            <input type="email" class="form-control" id="email" placeholder="Ingrese su correo"
+                                required>
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-2">
                             <label for="password" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" id="password"
-                                placeholder="Ingrese su contraseña">
+                                placeholder="Ingrese su contraseña" required>
+                        </div>
+                        <div class="mb-2 d-flex justify-content-center">
+                            <a href="../registrar" class="text-decoration-none">¿No tenés cuenta? Registrate</a>
                         </div>
                         <button type="submit" class="btn btn-primary w-100" id="submitButton">Iniciar sesión</button>
                     </form>

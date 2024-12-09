@@ -49,34 +49,12 @@ if (!isset($datosBody['email'])) {
     return;
 }
 
-if (!isset($datosBody['idPerfil'])) {
-    $response->tieneError = true;
-    $response->mensaje = "El perfil es requerido";
-    $json = json_encode($response);
-    echo $json;
-    return;
-}
-
-if (!isset($datosBody['idPais'])) {
-    $response->tieneError = true;
-    $response->mensaje = "El país es requerido";
-    $json = json_encode($response);
-    echo $json;
-    return;
-}
-
-if (!isset($datosBody['idCiudad'])) {
-    $response->tieneError = true;
-    $response->mensaje = "La ciudad es requerida";
-    $json = json_encode($response);
-    echo $json;
-    return;
-}
-
 $nombre = $datosBody['nombre'];
 $apellido = $datosBody['apellido'];
 $password = $datosBody['password'];
 $dni = $datosBody['dni'];
+$email = $datosBody['email'];
+$idPerfil = 2;
 $celular;
 
 if (isset($datosBody['celular'])) {
@@ -84,11 +62,6 @@ if (isset($datosBody['celular'])) {
 } else {
     $celular = null;
 }
-
-$email = $datosBody['email'];
-$idPerfil = $datosBody['idPerfil'];
-$idPais = $datosBody['idPais'];
-$idCiudad = $datosBody['idCiudad'];
 
 $usuario = new Usuario(
     [
@@ -100,8 +73,6 @@ $usuario = new Usuario(
         "celular" => $celular,
         "email" => $email,
         "idPerfil" => $idPerfil,
-        "idPais" => $idPais,
-        "idCiudad" => $idCiudad,
         "fechaAlta" => date('Y-m-d H:i:s'),
         "fechaModificacion" => null,
         "usuarioModificacion" => null
@@ -116,6 +87,7 @@ try {
     $response->resultado = $rowsAffected;
 
     if ($rowsAffected == 0) {
+        $response->tieneError = true;
         $response->mensaje = "No se pudo crear el usuario " . $usuario->nombre . " " . $usuario->apellido;
         http_response_code(400);
     } else {
@@ -126,5 +98,4 @@ try {
     $response->mensaje = $e->getMessage();
 }
 
-$json = json_encode($response);
-echo $json;
+echo json_encode($response);
