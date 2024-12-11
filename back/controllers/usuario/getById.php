@@ -22,7 +22,7 @@ try {
     $usuario = $usuarioService->getById($id);
 
     $response->tieneError = false;
-    $response->resultado = $usuario;
+    $response->data = $usuario;
 
     if ($usuario == null) {
         $response->mensaje = "No se encontró el usuario";

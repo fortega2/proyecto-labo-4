@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../../models/entities/usuario.model.php';
 require_once __DIR__ . '/../../models/dtos/response/general-response.model.php';
 require_once __DIR__ . '/../../services/usuario.service.php';
+require_once __DIR__ . '/../../services/session.service.php';
 
 header('Content-Type: application/json');
 
@@ -10,8 +11,7 @@ $response = new GeneralResponse();
 if (!isset($_GET['email'])) {
     $response->tieneError = true;
     $response->mensaje = "Es requerido el email para buscar un usuario";
-    $json = json_encode($response);
-    echo $json;
+    echo json_encode($response);
     http_response_code(400);
     return;
 }
@@ -19,8 +19,7 @@ if (!isset($_GET['email'])) {
 if (!isset($_GET['password'])) {
     $response->tieneError = true;
     $response->mensaje = "Es requerida la contraseña para buscar un usuario";
-    $json = json_encode($response);
-    echo $json;
+    echo json_encode($response);
     http_response_code(400);
     return;
 }
@@ -33,14 +32,21 @@ try {
     $usuario = $usuarioService->loginUsuario($email, $password);
 
     $response->tieneError = false;
-    $response->resultado = $usuario;
+    $response->data = $usuario;
 
     if ($usuario == null) {
         $response->tieneError = true;
         $response->mensaje = "No se encontró el usuario. El email o la contraseña son incorrectos.";
         http_response_code(404);
     } else {
-        $_SESSION['datosUsuario'] = $usuario;
+        $sessionSrv = SessionService::getInstance();
+        if (!$sessionSrv->isSessionStarted()) {
+            $sessionSrv->startSession();
+            $sessionSrv->setSessionDataByKey('usuario', json_encode($usuario));
+        } else {
+            $sessionSrv->unsetAllSessionData();
+            $sessionSrv->setSessionDataByKey('usuario', json_encode($usuario));
+        }
     }
 } catch (Exception $e) {
     $response->tieneError = true;

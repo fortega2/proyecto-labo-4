@@ -22,7 +22,7 @@ try {
     $pais = $paisService->getByCode($codigo);
 
     $response->tieneError = false;
-    $response->resultado = $pais;
+    $response->data = $pais;
 
     if ($pais == null) {
         $response->mensaje = "No se encontró el país";

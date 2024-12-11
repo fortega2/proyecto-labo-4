@@ -22,7 +22,7 @@ try {
     $rowsAffected = $usuarioService->delete($id);
 
     $response->tieneError = false;
-    $response->resultado = $rowsAffected;
+    $response->data = $rowsAffected;
 
     if ($rowsAffected == 0) {
         $response->mensaje = "No se pudo eliminar el usuario " . $id;

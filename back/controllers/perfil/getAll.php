@@ -12,7 +12,7 @@ try {
     $perfiles = $perfilService->getAll();
 
     $response->tieneError = false;
-    $response->resultado = $perfiles;
+    $response->data = $perfiles;
 
     if ($perfiles == null) {
         $response->mensaje = "No se encontraron perfiles";

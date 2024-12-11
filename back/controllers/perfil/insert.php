@@ -42,7 +42,7 @@ try {
     $rowsAffected = $perfilService->insert($perfil);
 
     $response->tieneError = false;
-    $response->resultado = $rowsAffected;
+    $response->data = $rowsAffected;
 
     if ($rowsAffected == 0) {
         $response->mensaje = "No se pudo crear el perfil " . $perfil->id . " " . $perfil->descripcion;

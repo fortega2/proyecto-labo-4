@@ -22,7 +22,7 @@ try {
     $pais = $ciudadService->getByCode($code);
 
     $response->tieneError = false;
-    $response->resultado = $pais;
+    $response->data = $pais;
 
     if ($pais == null) {
         $response->mensaje = "No se encontró la ciudad";

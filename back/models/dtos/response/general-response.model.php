@@ -2,11 +2,11 @@
 class GeneralResponse {
     public bool $tieneError;
     public string $mensaje;
-    public $resultado;
+    public $data;
 
-    public function __construct(bool $tieneError = false, string $mensaje = "", $resultado = null) {
+    public function __construct(bool $tieneError = false, string $mensaje = "", $data = null) {
         $this->tieneError = $tieneError;
         $this->mensaje = $mensaje;
-        $this->resultado = $resultado;
+        $this->data = $data;
     }
 }

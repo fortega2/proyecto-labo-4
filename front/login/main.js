@@ -1,11 +1,13 @@
 import GeneralResponse from "../models/dtos/general-response.dto.js";
+import SessionService from "../services/session.js";
 import UsuarioService from "../services/usuario.js";
 
 const formElement = document.getElementById('formLogin');
 const emailElement = document.getElementById('email');
 const passwordElement = document.getElementById('password');
 const submitButton = document.getElementById('submitButton');
-const usuarioService = new UsuarioService();
+const usuarioSrv = new UsuarioService();
+const sessionSrv = new SessionService();
 
 emailElement.value = '';
 
@@ -28,11 +30,11 @@ formElement.addEventListener('submit', async (event) => {
     const password = passwordElement.value;
 
     try {
-        const response = await usuarioService.login(email, password);
-        const generapRsp = new GeneralResponse(response.tieneError, response.mensaje, response.data);
+        const loginRsp = await usuarioSrv.login(email, password);
+        let generalRsp = new GeneralResponse(loginRsp.tieneError, loginRsp.mensaje, loginRsp.data);
 
-        if (generapRsp.tieneError) {
-            alert(response.mensaje);
+        if (generalRsp.tieneError) {
+            alert(loginRsp.mensaje);
             return;
         }
     } catch (error) {

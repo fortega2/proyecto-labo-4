@@ -12,7 +12,7 @@ try {
     $usuarios = $usuarioService->getAll();
 
     $response->tieneError = false;
-    $response->resultado = $usuarios;
+    $response->data = $usuarios;
 
     if ($usuarios == null) {
         $response->mensaje = "No se encontró ningún usuario";

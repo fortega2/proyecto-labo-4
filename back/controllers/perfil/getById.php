@@ -22,7 +22,7 @@ try {
     $perfil = $perfilService->getById($id);
 
     $response->tieneError = false;
-    $response->resultado = $perfil;
+    $response->data = $perfil;
 
     if ($perfil == null) {
         $response->mensaje = "No se encontró el perfil";
