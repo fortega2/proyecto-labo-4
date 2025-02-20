@@ -24,6 +24,7 @@ pnp.js
 /.next
 /.nuxt
 /public
+!front/dist/  # Esta línea excluye la carpeta dist dentro de front
 
 # SASS
 .sass-cache
@@ -38,7 +39,7 @@ pnp.js
 # TypeScript
 /tsconfig.tsbuildinfo
 
-# IDEs and editors
+# IDEs y editores
 .idea
 .vscode
 *.suo
@@ -47,6 +48,6 @@ pnp.js
 *.sln
 *.sw?
 
-# OS generated files
+# Archivos generados por el sistema operativo
 .DS_Store
 Thumbs.db
