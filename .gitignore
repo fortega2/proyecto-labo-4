@@ -20,11 +20,11 @@ pnp.js
 # Build output
 /build
 /dist
+/front/dist/
 /out
 /.next
 /.nuxt
 /public
-!front/dist/  # Esta línea excluye la carpeta dist dentro de front
 
 # SASS
 .sass-cache
