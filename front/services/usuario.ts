@@ -1,15 +1,11 @@
-import { BACK_WS } from "../environments/environment.js";
-
 class UsuarioService {
-    constructor() {
-        this.urlUsuario = `${BACK_WS}/usuario`;
-    }
+    private readonly _urlUsuario = 'http://localhost/proyecto-labo-4/back/controllers/usuario';
 
-    async login(email, password) {
+    public async login(email: string, password: string) {
         const encodedEmail = encodeURIComponent(email);
         const encodedPassword = encodeURIComponent(password);
 
-        const response = await fetch(`${this.urlUsuario}/loginUsuario.php?email=${encodedEmail}&password=${encodedPassword}`, {
+        const response = await fetch(`${this._urlUsuario}/loginUsuario.php?email=${encodedEmail}&password=${encodedPassword}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,8 +15,8 @@ class UsuarioService {
         return response.json();
     }
 
-    async crear(usuario) {
-        const response = await fetch(`${this.urlUsuario}/insert.php`, {
+    public async crear(usuario: any) {
+        const response = await fetch(`${this._urlUsuario}/insert.php`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,9 +1,8 @@
 class GeneralResponse {
-    constructor(tieneError = false, mensaje = '', data = null) {
+    constructor(data, tieneError = false, mensaje = '') {
+        this.data = data;
         this.tieneError = tieneError;
         this.mensaje = mensaje;
-        this.data = data;
     }
 }
-
 export default GeneralResponse;

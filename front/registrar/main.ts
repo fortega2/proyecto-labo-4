@@ -1,15 +1,29 @@
 import GeneralResponse from "../models/dtos/general-response.dto.js";
 import UsuarioService from "../services/usuario.js";
 
-const formElement = document.getElementById('form');
-const nombreElement = document.getElementById('nombre');
-const apellidoElement = document.getElementById('apellido');
-const passwordElement = document.getElementById('password');
-const emailElement = document.getElementById('email');
-const dniElement = document.getElementById('dni');
-const celularElement = document.getElementById('celular');
-const inicioSesionButton = document.getElementById('inicioSesion');
-const registrarButton = document.getElementById('registrar');
+const formElement = document.getElementById('form') as HTMLFormElement;
+const nombreElement = document.getElementById('nombre') as HTMLInputElement;
+const apellidoElement = document.getElementById('apellido') as HTMLInputElement;
+const passwordElement = document.getElementById('password') as HTMLInputElement;
+const emailElement = document.getElementById('email') as HTMLInputElement;
+const dniElement = document.getElementById('dni') as HTMLInputElement;
+const celularElement = document.getElementById('celular') as HTMLInputElement;
+const inicioSesionButton = document.getElementById('inicioSesion') as HTMLButtonElement;
+const registrarButton = document.getElementById('registrar') as HTMLButtonElement;
+
+const resetearCamposForm = () => {
+    nombreElement.value = '';
+    apellidoElement.value = '';
+    emailElement.value = '';
+    dniElement.value = '';
+    celularElement.value = '';
+    registrarButton.disabled = true;
+}
+
+const volverLogin = () => {
+    window.location.href = '../login';
+}
+
 const usuarioService = new UsuarioService();
 
 resetearCamposForm();
@@ -55,16 +69,3 @@ formElement.addEventListener('submit', async (event) => {
         alert(error);
     }
 });
-
-function resetearCamposForm() {
-    nombreElement.value = '';
-    apellidoElement.value = '';
-    emailElement.value = '';
-    dniElement.value = '';
-    celularElement.value = '';
-    registrarButton.disabled = true;
-}
-
-function volverLogin() {
-    window.location.href = '../login';
-}
