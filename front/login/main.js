@@ -8,16 +8,19 @@ const passwordElement = document.getElementById('password');
 const submitButton = document.getElementById('submitButton');
 const usuarioSrv = new UsuarioService();
 const sessionSrv = new SessionService();
-
-emailElement.value = '';
-
-formElement.addEventListener('input', () => {
+const validarForm = () => {
     if (!formElement.checkValidity()) {
         submitButton.disabled = true;
     } else {
         submitButton.disabled = false;
     }
-});
+};
+
+emailElement.value = '';
+passwordElement.value = '';
+validarForm();
+
+formElement.addEventListener('input', validarForm);
 
 formElement.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -26,7 +29,7 @@ formElement.addEventListener('submit', async (event) => {
         return;
     }
 
-    const email = emailElement.value.trim().toUpperCase();
+    const email = emailElement.value.trim();
     const password = passwordElement.value;
 
     try {

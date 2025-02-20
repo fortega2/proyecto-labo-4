@@ -35,7 +35,7 @@ formElement.addEventListener('submit', async (event) => {
         nombre: nombreElement.value.trim().toUpperCase(),
         apellido: apellidoElement.value.trim().toUpperCase(),
         password: passwordElement.value,
-        email: emailElement.value.trim().toUpperCase(),
+        email: emailElement.value.trim(),
         dni: parseInt(dniElement.value, 10),
         celular: celularElement.value ? parseInt(celularElement.value, 10) : null,
     };
