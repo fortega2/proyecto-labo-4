@@ -1,5 +1,5 @@
-import GeneralResponse from "../models/dtos/general-response.dto.js";
-import UsuarioService from "../services/usuario.js";
+import GeneralResponse from "../../models/dtos/general-response.dto.js";
+import UsuarioService from "../../services/usuario.js";
 
 const formElement = document.getElementById('form') as HTMLFormElement;
 const nombreElement = document.getElementById('nombre') as HTMLInputElement;

@@ -1,6 +1,6 @@
-import GeneralResponse from "../models/dtos/general-response.dto.js";
-import SessionService from "../services/session.js";
-import UsuarioService from "../services/usuario.js";
+import GeneralResponse from "../../models/dtos/general-response.dto.js";
+import SessionService from "../../services/session.js";
+import UsuarioService from "../../services/usuario.js";
 
 const formElement = document.getElementById('formLogin') as HTMLFormElement;
 const emailElement = document.getElementById('email') as HTMLInputElement;
