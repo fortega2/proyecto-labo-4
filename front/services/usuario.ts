@@ -1,7 +1,10 @@
+import GeneralResponse from "../models/dtos/general-response.dto";
+import Usuario from "../models/entities/usuario.model";
+
 class UsuarioService {
     private readonly _urlUsuario = 'http://localhost/proyecto-labo-4/back/controllers/usuario';
 
-    public async login(email: string, password: string) {
+    public async login(email: string, password: string): Promise<GeneralResponse<Usuario>> {
         const encodedEmail = encodeURIComponent(email);
         const encodedPassword = encodeURIComponent(password);
 

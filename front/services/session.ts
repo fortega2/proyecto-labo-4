@@ -1,7 +1,9 @@
+import GeneralResponse from "../models/dtos/general-response.dto";
+
 class SessionService {
     private readonly _urlSession = 'http://localhost/proyecto-labo-4/back/controllers/session';
 
-    public async getAll() {
+    public async getAll(): Promise<GeneralResponse<any[]>> {
         const response = await fetch(`${this._urlSession}/getAll.php`, {
             method: 'GET',
             headers: {
@@ -12,7 +14,7 @@ class SessionService {
         return response.json();
     }
 
-    public async getByKey(key: string) {
+    public async getByKey(key: string): Promise<GeneralResponse<any>> {
         const encodedKey = encodeURIComponent(key);
 
         const response = await fetch(`${this._urlSession}/getByKey.php?key=${encodedKey}`, {
