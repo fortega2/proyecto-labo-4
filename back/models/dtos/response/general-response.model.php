@@ -2,7 +2,7 @@
 class GeneralResponse {
     public bool $tieneError;
     public string $mensaje;
-    public $data;
+    public mixed $data;
 
     public function __construct(bool $tieneError = false, string $mensaje = "", $data = null) {
         $this->tieneError = $tieneError;

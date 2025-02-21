@@ -1,5 +1,6 @@
-class Usuario {
-    public id: number | null;
+import BaseEntity from "./base-entity.model";
+
+class Usuario extends BaseEntity {
     public nombre: string;
     public apellido: string;
     public password: string;
@@ -12,7 +13,7 @@ class Usuario {
     public usuarioModificacion: number | null;
 
     constructor() {
-        this.id = null;
+        super(null);
         this.nombre = '';
         this.apellido = '';
         this.password = '';
