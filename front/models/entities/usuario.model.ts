@@ -1,4 +1,4 @@
-import BaseEntity from "./base-entity.model";
+import BaseEntity from "./base-entity.model.js";
 
 class Usuario extends BaseEntity {
     public nombre: string;

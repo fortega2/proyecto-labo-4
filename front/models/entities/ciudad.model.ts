@@ -1,4 +1,4 @@
-import BaseEntity from "./base-entity.model";
+import BaseEntity from "./base-entity.model.js";
 
 class Ciudad extends BaseEntity {
     public nombre: string;

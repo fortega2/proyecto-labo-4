@@ -1,4 +1,3 @@
-import SessionService from "../../services/session.js";
 import UsuarioService from "../../services/usuario.js";
 
 const formElement = document.getElementById('formLogin') as HTMLFormElement;
@@ -15,7 +14,6 @@ const validarForm = () => {
 };
 
 const usuarioSrv = new UsuarioService();
-const sessionSrv = new SessionService();
 
 emailElement.value = '';
 passwordElement.value = '';
