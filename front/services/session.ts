@@ -26,6 +26,28 @@ class SessionService {
 
         return response.json();
     }
+
+    public async getSessionData(): Promise<GeneralResponse<any>> {
+        const response = await fetch(`${this._urlSession}/getSessionData.php`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        return response.json();
+    }
+
+    public async sessionDestroy(): Promise<GeneralResponse<boolean | null>> {
+        const response = await fetch(`${this._urlSession}/sessionDestroy.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        return response.json();
+    }
 }
 
 export default SessionService;
