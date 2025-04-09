@@ -39,6 +39,7 @@ try {
         $response->mensaje = "No se encontró el usuario. El email o la contraseña son incorrectos.";
         http_response_code(404);
     } else {
+        $usuario->password = '';
         $sessionSrv = SessionService::getInstance();
         if (!$sessionSrv->isSessionStarted()) {
             $sessionSrv->startSession();

@@ -1,3 +1,4 @@
+import { NombrePagina } from "../../constantes.js";
 import Usuario from "../../models/entities/usuario.model.js";
 import SessionService from "../../services/session.js";
 
@@ -5,13 +6,14 @@ const cerrarSesionBtn = document.getElementById('cerrarSessionBtn') as HTMLButto
 const misVuelosBtn = document.getElementById('misVuelosBtn') as HTMLButtonElement;
 const perfilBtn = document.getElementById('perfilBtn') as HTMLButtonElement;
 const userNameSpan = document.getElementById('userName') as HTMLSpanElement;
+const nombrePaginaSpan = document.getElementById('nombrePagina') as HTMLSpanElement;
+const sessionService = new SessionService();
 let datosUsuario = new Usuario();
 
 const volverLogin = () => {
     const loginPath = '../login/index.html';
     window.location.href = loginPath;
 };
-
 const getSessionData = async () => {
     const rsp = await sessionService.getSessionData();
 
@@ -24,9 +26,8 @@ const getSessionData = async () => {
     userNameSpan.innerText = `${datosUsuario.nombre} ${datosUsuario.apellido}`;
 };
 
-const sessionService = new SessionService();
-
 getSessionData();
+nombrePaginaSpan.innerText = NombrePagina;
 
 cerrarSesionBtn?.addEventListener('click', async () => {
     const rsp = await sessionService.sessionDestroy();

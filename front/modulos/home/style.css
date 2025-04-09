@@ -16,7 +16,8 @@ body {
     margin: 0 auto;
 }
 
-li > a {
+a.navbar-brand,
+li>a {
     cursor: pointer;
 }
 
@@ -26,4 +27,13 @@ li > a {
 
 .dropdown-menu .dropdown-item:last-child {
     border-bottom: none !important;
+}
+
+.navbar-brand i {
+    font-size: 1.5rem;
+    transform: rotate(40deg);
+}
+
+.navbar-brand span {
+    font-size: 1rem;
 }
